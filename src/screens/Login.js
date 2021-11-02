@@ -80,7 +80,9 @@ export default props => {
                         </Text>
                     </View>
                     <View style={ [style.containerInput, style.row] }>
-                        <Pressable style={[style.button, {width: '100%'}]} onPress={onPress}>
+                        <Pressable style={[style.button, {width: '100%'}]} onPress={ p => {
+                            props.navigation.navigate('ListMessage')
+                        }} >
                             <Text style={style.text} >Entrar</Text>
                         </Pressable>
                     </View>
