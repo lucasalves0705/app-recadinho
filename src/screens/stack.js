@@ -7,7 +7,9 @@ const Stack = createNativeStackNavigator();
 export default props=>{
 
     return(
-        <Stack.Navigator initialRouteName="Login">
+        <Stack.Navigator initialRouteName="Login" screenOptions = {{
+            headerShown: false
+        }}>
             <Stack.Screen name="Login" component={Login}></Stack.Screen>
         </Stack.Navigator>
     )

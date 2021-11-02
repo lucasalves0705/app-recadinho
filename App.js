@@ -1,6 +1,6 @@
 import React  from "react";
 import { NavigationContainer } from '@react-navigation/native';
-import Stack from './Screens/Stack'
+import Stack from "./src/screens/stack";
 
 
 export default props=>{
