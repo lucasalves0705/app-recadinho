@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator();
 export default props=>{
 
     return(
-        <Stack.Navigator initialRouteName="ListMessage" screenOptions = {{ headerShown: false }}>
+        <Stack.Navigator initialRouteName="Login" screenOptions = {{ headerShown: false }}>
             <Stack.Screen name="Login" component={Login}></Stack.Screen>
             <Stack.Screen name="ListMessage" component={ListMessage}></Stack.Screen>
             <Stack.Screen name="Message" component={Message}></Stack.Screen>

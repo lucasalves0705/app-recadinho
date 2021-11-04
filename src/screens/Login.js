@@ -57,6 +57,13 @@ export default props => {
             letterSpacing: 0.25,
             color: 'white',
         },
+        btnSouRecadinho: {
+            alignItems: 'center',
+            justifyContent: 'center'
+        },
+        textSouRecadinho: {
+            fontSize: 15
+        }
     })
     
     const { onPress, mensagemErro = 'Já existe esse nome de usuário!' } = props;
@@ -84,6 +91,13 @@ export default props => {
                             props.navigation.navigate('ListMessage')
                         }} >
                             <Text style={style.text} >Entrar</Text>
+                        </Pressable>
+                    </View>
+                    <View style={ [ style.containerInput, style.row ] }>
+                        <Pressable style={ [style.btnSouRecadinho, {width: '100%'}] } onPress={ p => {
+                            props.navigation.navigate('Message')
+                        }} >
+                            <Text style={ style.textSouRecadinho }>Sou recadinho</Text>
                         </Pressable>
                     </View>
                 </View>
