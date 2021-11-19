@@ -1,6 +1,5 @@
-import React, {useState, useContext} from 'react'
-import { StyleSheet, View, Text, TextInput, Pressable, Image, Alert } from 'react-native'
-import api from '../api/api';
+import React from 'react'
+import { StyleSheet, View, Text, TextInput, Pressable, Image } from 'react-native'
 
 export default props => {
     const style = StyleSheet.create({
@@ -38,7 +37,7 @@ export default props => {
             borderBottomColor: '#aaa',
             borderBottomWidth: 1
         },
-        menssagemErro: {
+        mensagemErro: {
             marginTop: 5,
             color: '#dc3545'
         },
@@ -64,27 +63,11 @@ export default props => {
         },
         textSouRecadinho: {
             fontSize: 15
-        },
-        messageError: {
-            justifyContent: 'center',
-            marginTop: 25
         }
     })
     
-    var menssagemErro = '';
-    const [ username, setUsername] = useState('')
-    const validaLogin = async () => {
-        if (username !== ''){
-            //let response = await api.login(username)
-
-            //if(response.success == true){
-            if(true){
-                props.navigation.navigate('Message')
-            }
-        } else {
-            alert('Já existe esse nome de usuário!')
-        }
-    }
+    const { onPress, mensagemErro = 'Já existe esse nome de usuário!' } = props;
+    const [username, setUsername] = React.useState()
 
     return (
         <View style={ [ style.container, style.paddingForm ] }>
@@ -96,26 +79,32 @@ export default props => {
                         </Image>
                     </View>
                     <View style={ [style.containerInput, style.row] }>
-                        <Text style={ style.labelInput }>Digite um nome de usuário</Text>
-                        <TextInput 
-                            style={ style.input }
-                            onChangeText={t => setUsername(t)}
-                            value={ username }>
-                        </TextInput>
+                        <Text style={ style.labelInput } >Digite o email</Text>
+                        <TextInput style={ style.input }></TextInput>
                     </View>
+
+                    <View style={ [style.containerInput, style.row] }>
+                        <Text style={ style.labelInput } >Digite a senha</Text>
+                        <TextInput style={ style.input }></TextInput>
+                    </View>
+
                     <View>
+                        <Text style={ style.mensagemErro, { display: 'none' } } >
+                            {mensagemErro}
+                        </Text>
                     </View>
                     <View style={ [style.containerInput, style.row] }>
-                        <Pressable 
-                            style={[style.button, { width: '100%' }]}
-                            onPress={ validaLogin } >
+                        <Pressable style={[style.button, {width: '100%'}]} onPress={ p => {
+                            props.navigation.navigate('PainelAdmin')
+                        }} >
                             <Text style={style.text} >Entrar</Text>
                         </Pressable>
                     </View>
                     <View style={ [ style.containerInput, style.row ] }>
-                        <Pressable style={ [style.btnSouRecadinho, {width: '100%'}] } 
-                        onPress={ p => { props.navigation.navigate('LoginVip') }} >
-                            <Text style={ style.textSouRecadinho }>Sou recadinho</Text>
+                        <Pressable style={ [style.btnSouRecadinho, {width: '100%'}] } onPress={ p => {
+                            props.navigation.goBack(null)
+                        }} >
+                            <Text style={ style.textSouRecadinho }>Login com username</Text>
                         </Pressable>
                     </View>
                 </View>
