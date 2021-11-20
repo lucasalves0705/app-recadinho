@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, Text, TextInput, Pressable, Image } from 'react-native'
+import api from '../api/api';
 
 export default props => {
     const style = StyleSheet.create({
@@ -66,8 +67,48 @@ export default props => {
         }
     })
     
-    const { onPress, mensagemErro = 'Já existe esse nome de usuário!' } = props;
-    const [username, setUsername] = React.useState()
+    
+    const [username, setUsername] = React.useState('')
+    const [email, setEmail] = React.useState('')
+    const [password, setPassword] = React.useState('')
+
+    const validaCreate = async () => {
+        if( username != ''
+            && email != ''
+            && password != ''
+        ){
+            let obj,
+            response
+
+            obj = {
+                'type_of_user_id': 1,
+                'name': username,
+                'email': email,
+                'password': password
+            }
+            
+            console.log(username, email, password)
+
+            response = await 
+                api.createUser(obj)
+                .then((data) => {
+                    console.log(data)
+                    if(data.success == true){
+                        props.navigation.navigate('PainelAdmin')
+                    } else {
+                        if(data.errors.name[0] != ''){
+                            alert(data.errors.name[0])
+                        } else {
+                            alert(data.errors.message)
+                        }
+                    }
+                }).catch((error) => {
+                    alert('Aconteceu um erro ao fazer o cadastro. Desculpe :(')
+                })
+        } else {
+            alert('Preencha todos os campos!.')
+        }
+    }
 
     return (
         <View style={ [ style.container, style.paddingForm ] }>
@@ -78,25 +119,30 @@ export default props => {
                         <Image source={ require('../images/logoSimbolo.png') }>
                         </Image>
                     </View>
+                    
+                    <View style={ [style.containerInput, style.row] }>
+                        <Text style={ style.labelInput } >Digite seu nome</Text>
+                        <TextInput style={ style.input } 
+                            onChangeText={t => setUsername(t)}
+                            value={ username } ></TextInput>
+                    </View>
+
                     <View style={ [style.containerInput, style.row] }>
                         <Text style={ style.labelInput } >Digite o email</Text>
-                        <TextInput style={ style.input }></TextInput>
+                        <TextInput style={ style.input } 
+                            onChangeText={t => setEmail(t)}
+                            value={ email }></TextInput>
                     </View>
 
                     <View style={ [style.containerInput, style.row] }>
                         <Text style={ style.labelInput } >Digite a senha</Text>
-                        <TextInput style={ style.input }></TextInput>
+                        <TextInput style={ style.input } 
+                            onChangeText={t => setPassword(t)}
+                            value={ password }></TextInput>
                     </View>
 
-                    <View>
-                        <Text style={ style.mensagemErro, { display: 'none' } } >
-                            {mensagemErro}
-                        </Text>
-                    </View>
                     <View style={ [style.containerInput, style.row] }>
-                        <Pressable style={[style.button, {width: '100%'}]} onPress={ p => {
-                            props.navigation.navigate('PainelAdmin')
-                        }} >
+                        <Pressable style={[style.button, {width: '100%'}]} onPress={ validaCreate } >
                             <Text style={style.text} >Entrar</Text>
                         </Pressable>
                     </View>

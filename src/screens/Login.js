@@ -67,22 +67,43 @@ export default props => {
         },
         messageError: {
             justifyContent: 'center',
-            marginTop: 25
+            marginTop: 25,
+            color: '#f00'
         }
     })
     
     var menssagemErro = '';
     const [ username, setUsername] = useState('')
+    const [ messageError, setMessageError] = useState('')
     const validaLogin = async () => {
         if (username !== ''){
-            //let response = await api.login(username)
+            let obj,
+            response
 
-            //if(response.success == true){
-            if(true){
-                props.navigation.navigate('Message')
+            obj = {
+                'type_of_user_id': 3,
+                'name': username,
+                'email': '',
+                'password': ''
             }
+            
+            response = await 
+                api.login(obj)
+                .then((data) =>{
+                    if(data.success == true){
+                        props.navigation.navigate('Message')
+                    } else {
+                        if(data.errors.name[0] != ''){
+                            alert(data.errors.name[0])
+                        } else {
+                            alert(data.errors.message)
+                        }
+                    }
+                }).catch((error) => {
+                    alert('Aconteceu um erro ao fazer login. Desculpe :(')
+                })
         } else {
-            alert('Já existe esse nome de usuário!')
+            alert('Inserir um nome de usuario!')
         }
     }
 
@@ -102,8 +123,6 @@ export default props => {
                             onChangeText={t => setUsername(t)}
                             value={ username }>
                         </TextInput>
-                    </View>
-                    <View>
                     </View>
                     <View style={ [style.containerInput, style.row] }>
                         <Pressable 
