@@ -1,4 +1,4 @@
-const BASE_API = 'http://192.168.0.110:8000';
+const BASE_API = 'http://177.153.59.11/apirecadinho';
 
 export default {
     login: async (params) => {
