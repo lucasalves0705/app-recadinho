@@ -67,43 +67,44 @@ export default props => {
         }
     })
     
-    
-    const [username, setUsername] = React.useState('')
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
 
     const validaCreate = async () => {
-        if( username != ''
-            && email != ''
-            && password != ''
-        ){
+        if( email != '' && password != '' ){
             let obj,
             response
 
             obj = {
-                'type_of_user_id': 1,
-                'name': username,
                 'email': email,
                 'password': password
             }
-            
-            console.log(username, email, password)
 
             response = await 
-                api.createUser(obj)
+                api.loginUserVip(obj)
                 .then((data) => {
-                    console.log(data)
+                    
                     if(data.success == true){
-                        props.navigation.navigate('PainelAdmin')
-                    } else {
-                        if(data.errors.name[0] != ''){
-                            alert(data.errors.name[0])
+
+                        if(data.user.type_of_user_id == 1){
+                            props.navigation.navigate('PainelAdmin')
                         } else {
-                            alert(data.errors.message)
+                            props.navigation.navigate('PerfilArtist')
+                        }
+
+                    } else {
+                        if(data.message != ''){
+                            alert(data.message)
+                        } else {
+                            if(data.errors.name[0] != ''){
+                                alert(data.errors.name[0])
+                            } else {
+                                alert(data.errors.message)
+                            }
                         }
                     }
                 }).catch((error) => {
-                    alert('Aconteceu um erro ao fazer o cadastro. Desculpe :(')
+                    alert(error)
                 })
         } else {
             alert('Preencha todos os campos!.')
@@ -118,13 +119,6 @@ export default props => {
                     <View style={ [ style.imgLogo, style.row ] } >
                         <Image source={ require('../images/logoSimbolo.png') }>
                         </Image>
-                    </View>
-                    
-                    <View style={ [style.containerInput, style.row] }>
-                        <Text style={ style.labelInput } >Digite seu nome</Text>
-                        <TextInput style={ style.input } 
-                            onChangeText={t => setUsername(t)}
-                            value={ username } ></TextInput>
                     </View>
 
                     <View style={ [style.containerInput, style.row] }>

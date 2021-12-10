@@ -1,7 +1,6 @@
 import React from "react"
 import { StyleSheet, View,  Text, Image, Pressable, TextInput } from 'react-native'
 import bootstrap from "../styles/bootstrap"
-import api from '../api/api';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default props => {
@@ -69,36 +68,6 @@ export default props => {
         },
     })
 
-    const [email, setEmail] = React.useState('')
-    const [bio, setBio] = React.useState('')
-    const validaCreate = async () => {
-        if(email != ''
-        && bio !=''){
-            let obj,
-                response
-
-                obj = {
-                    'email': email,
-                    'bio': bio
-                }
-
-                response = await 
-                api.createShow(obj)
-                .then((data) => {
-                    if(data.success == true){
-                        props.navigation.navigate('PainelAdmin')
-                    } else {
-                        alert(data.message)
-                    }
-                }).catch((error) => {
-                    alert('Aconteceu um erro ao fazer o cadastro. Desculpe :(')
-                })
-
-        } else {
-            alert('Preencha todos os campos!.')
-        }
-    }
-
     return (
         <View style={ bootstrap.container }>
             <View style={ [ bootstrap.row, { flexGrow: 1 }] } >
@@ -106,7 +75,7 @@ export default props => {
 
                     <View style={ [ bootstrap.row, style.header ] } >
                         <View style={ [bootstrap.container, style.rowName] }>
-                            <Text style={ style.textName }>Cadastro de Shows</Text>
+                            <Text style={ style.textName }>Cadastro de Artista</Text>
                         </View>
                     </View>
 
@@ -120,23 +89,26 @@ export default props => {
 
                         <View style={ style.formGroup }>
                             <Text style={ style.labelInput } >Digite o email do artista</Text>
-                            <TextInput style={ style.input } 
-                                onChangeText={t => setEmail(t)}
-                                value={ email }></TextInput>
+                            <TextInput style={ style.input }></TextInput>
+                        </View>
+
+                        <View style={ style.formGroup }>
+                            <Text style={ style.labelInput } >Digite uma senha</Text>
+                            <TextInput style={ style.input }></TextInput>
                         </View>
 
                         <View style={ [ style.formGroup, style.textArea ] }>
-                            <Text style={ style.labelInput } >Biografia do show</Text>
+                            <Text style={ style.labelInput } >Escreva uma biografia</Text>
                             <TextInput
                                 multiline={true}
                                 numberOfLines={8}
-                                style={ style.input }
-                                onChangeText={t => setBio(t)}
-                                value={ bio }></TextInput>
+                                style={ style.input }></TextInput>
                         </View>
 
                         <View style={ [style.containerInput, style.row] }>
-                            <Pressable style={[style.button, {width: '100%'}]} onPress={ validaCreate } >
+                            <Pressable style={[style.button, {width: '100%'}]} onPress={ p => {
+                                props.navigation.navigate('ListMessage')
+                            }} >
                                 <Text style={style.text} >Salvar</Text>
                             </Pressable>
                         </View>

@@ -1,8 +1,8 @@
 import React from "react"
 import { StyleSheet, View,  Text, Image, Pressable, TextInput } from 'react-native'
 import bootstrap from "../styles/bootstrap"
-import api from '../api/api';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import api from "../api/api";
 
 export default props => {
     const style = StyleSheet.create({
@@ -69,34 +69,23 @@ export default props => {
         },
     })
 
-    const [email, setEmail] = React.useState('')
-    const [bio, setBio] = React.useState('')
-    const validaCreate = async () => {
-        if(email != ''
-        && bio !=''){
-            let obj,
-                response
+    const [ idArtista, setIdArtista ] = React.useState('')
+    const [ nome , setNome ] = React.useState('')
+    const [ bio, setBio ] = React.useState('')
 
-                obj = {
-                    'email': email,
-                    'bio': bio
-                }
+    const recuperaArtista = async () => {
+        
+        let response
 
-                response = await 
-                api.createShow(obj)
+        response = await 
+                api.buscarArtista(2)
                 .then((data) => {
-                    if(data.success == true){
-                        props.navigation.navigate('PainelAdmin')
-                    } else {
-                        alert(data.message)
-                    }
-                }).catch((error) => {
-                    alert('Aconteceu um erro ao fazer o cadastro. Desculpe :(')
+                    
+                })
+                .catch((error) => {
+
                 })
 
-        } else {
-            alert('Preencha todos os campos!.')
-        }
     }
 
     return (
@@ -106,7 +95,7 @@ export default props => {
 
                     <View style={ [ bootstrap.row, style.header ] } >
                         <View style={ [bootstrap.container, style.rowName] }>
-                            <Text style={ style.textName }>Cadastro de Shows</Text>
+                            <Text style={ style.textName }>Cadastro de Artista</Text>
                         </View>
                     </View>
 
@@ -119,24 +108,17 @@ export default props => {
                         </View>
 
                         <View style={ style.formGroup }>
-                            <Text style={ style.labelInput } >Digite o email do artista</Text>
-                            <TextInput style={ style.input } 
-                                onChangeText={t => setEmail(t)}
-                                value={ email }></TextInput>
+                            <Text  >{ nome }</Text>
                         </View>
 
                         <View style={ [ style.formGroup, style.textArea ] }>
-                            <Text style={ style.labelInput } >Biografia do show</Text>
-                            <TextInput
-                                multiline={true}
-                                numberOfLines={8}
-                                style={ style.input }
-                                onChangeText={t => setBio(t)}
-                                value={ bio }></TextInput>
+                            <Text  >{ bio }</Text>
                         </View>
 
                         <View style={ [style.containerInput, style.row] }>
-                            <Pressable style={[style.button, {width: '100%'}]} onPress={ validaCreate } >
+                            <Pressable style={[style.button, {width: '100%'}]} onPress={ p => {
+                                props.navigation.navigate('ListMessage')
+                            }} >
                                 <Text style={style.text} >Salvar</Text>
                             </Pressable>
                         </View>

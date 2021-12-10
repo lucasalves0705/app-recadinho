@@ -26,7 +26,7 @@ export default props => {
     return (
         <View style={ bootstrap.container }>
             <View style={ [ bootstrap.row, { flexGrow: 1 }] }>
-                <View style={ bootstrap.container }>
+                <View style={ [ bootstrap.container] }>
 
                     <View style={ [ bootstrap.row, bootstrap.header ] } >
                         <View style={ [bootstrap.container, bootstrap.rowName] }>
@@ -44,7 +44,7 @@ export default props => {
                         <View style={ [ bootstrap.row ] }>
                             <View style={ [ bootstrap.container, bootstrap.col4 ] }>
                                 <Pressable style={ [ bootstrap.row, bootstrap.justifyContentCenter,  style.cardItem ]}
-                                    onPress={ p => { props.navigation.navigate('CreateArtist') }}>
+                                    onPress={ p => { props.navigation.navigate('CreateVip') }}>
                                     <View style={ bootstrap.justifyContentCenter }>
                                         <Text>Artista</Text>
                                     </View>
@@ -56,6 +56,62 @@ export default props => {
                                     onPress={ p => { props.navigation.navigate('CreateShows') }}>
                                     <View style={ bootstrap.justifyContentCenter }>
                                         <Text>Shows</Text>
+                                    </View>
+                                </Pressable>
+                            </View>
+                        </View>
+
+
+
+                        <View style={ [ bootstrap.row, { marginTop: 20 } ] }>
+                            <View style={ [ bootstrap.row ] }>
+                                <Text style={ style.nameSession } >Ver</Text>
+                            </View>
+                        </View>
+                    
+                        <View style={ [ bootstrap.row ] }>
+                            <View style={ [ bootstrap.container, bootstrap.col4 ] }>
+                                <Pressable style={ [ bootstrap.row, bootstrap.justifyContentCenter,  style.cardItem ]}
+                                    onPress={ p => { props.navigation.navigate('viewArtist') }}>
+                                    <View style={ bootstrap.justifyContentCenter }>
+                                        <Text>Artista</Text>
+                                    </View>
+                                </Pressable>
+                            </View>
+                            
+                            <View style={ [ bootstrap.container, bootstrap.col4 ] }>
+                                <Pressable style={ [ bootstrap.row, bootstrap.justifyContentCenter,  style.cardItem ]}
+                                    onPress={ p => { props.navigation.navigate('ViewShows') }}>
+                                    <View style={ bootstrap.justifyContentCenter }>
+                                        <Text>Shows</Text>
+                                    </View>
+                                </Pressable>
+                            </View>
+
+                            <View style={ [ bootstrap.container, bootstrap.col4 ] }>
+                                <Pressable style={ [ bootstrap.row, bootstrap.justifyContentCenter,  style.cardItem ]}
+                                    onPress={ p => { props.navigation.navigate('ListClient') }}>
+                                    <View style={ bootstrap.justifyContentCenter }>
+                                        <Text>Clientes</Text>
+                                    </View>
+                                </Pressable>
+                            </View>
+                        </View>
+
+
+
+                        <View style={ [ bootstrap.row, { marginTop: 20 } ] }>
+                            <View style={ [ bootstrap.row ] }>
+                                <Text style={ style.nameSession } >Mural</Text>
+                            </View>
+                        </View>
+                    
+                        <View style={ [ bootstrap.row ] }>
+                            <View style={ [ bootstrap.container, bootstrap.col4 ] }>
+                                <Pressable style={ [ bootstrap.row, bootstrap.justifyContentCenter,  style.cardItem ]}
+                                    onPress={ p => { props.navigation.navigate('Message') }}>
+                                    <View style={ bootstrap.justifyContentCenter }>
+                                        <Text>Mural</Text>
                                     </View>
                                 </Pressable>
                             </View>

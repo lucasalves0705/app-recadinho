@@ -72,9 +72,9 @@ export default props => {
         }
     })
     
-    var menssagemErro = '';
+    
     const [ username, setUsername] = useState('')
-    const [ messageError, setMessageError] = useState('')
+    
     const validaLogin = async () => {
         if (username !== ''){
             let obj,
